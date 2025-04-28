@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "cliente": "Veronica Rodriguez",
+    "fecha": "2025-04-28",
+    "productos": [
+      "Iphone 16"
+    ],
+    "total": 700000,
+    "metodoPago": "efectivo",
+    "descuento": 10,
+    "impuestos": 19
+  }
+]
