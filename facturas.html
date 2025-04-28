@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generación de Facturas</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">Facturación Electrónica Para Comerciantes</div>
+    <nav>
+      <a href="index.html" class="btn">Inicio</a>
+    </nav>
+  </header>
+  <main>
+    <section class="facturas">
+      <h2>Generar Factura Electrónica</h2>
+      <form>
+        <label for="cliente">Nombre del Cliente:</label>
+        <input type="text" id="cliente" name="cliente" required>
+
+        <label for="nitCliente">NIT/Cédula:</label>
+        <input type="text" id="nitCliente" name="nitCliente" required>
+
+        <label for="producto">Producto/Servicio:</label>
+        <select id="producto" name="producto" required>
+          <option value="001">Producto 1</option>
+          <option value="002">Servicio A</option>
+        </select>
+
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" name="cantidad" min="1" required>
+
+        <button type="submit" class="btn">Generar Factura</button>
+      </form>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Facturación Electrónica. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
