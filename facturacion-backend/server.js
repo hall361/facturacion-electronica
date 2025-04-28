@@ -4,60 +4,41 @@ const path = require("path");
 const app = express();
 const port = 3000;
 
-// Middleware para analizar JSON
 app.use(express.json());
 
-// Función para manejar operaciones en los JSON
-function manejarDatos(ruta, req, res, metodo) {
-  const filePath = path.join(__dirname, `data/${ruta}`);
-  const carpetaPath = path.join(__dirname, "data");
+const filePath = path.join(__dirname, "data/registro.json");
 
-  // Verifica si la carpeta "data" existe
-  if (!fs.existsSync(carpetaPath)) {
-    fs.mkdirSync(carpetaPath); // Crea la carpeta si no existe
-  }
-
-  if (metodo === "GET") {
-    fs.readFile(filePath, "utf8", (err, data) => {
-      if (err && err.code === "ENOENT") {
-        fs.writeFile(filePath, JSON.stringify([], null, 2), (err) => {
-          if (err) return res.status(500).send("Error al crear el archivo.");
-          res.send([]); // Archivo creado y devuelto como vacío
-        });
-      } else if (err) {
-        return res.status(500).send("Error al leer el archivo.");
-      } else {
-        res.send(JSON.parse(data));
+// Endpoint para obtener registros
+app.get("/registro", (req, res) => {
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      if (err.code === "ENOENT") {
+        return res.status(200).send([]); // Si el archivo no existe, devuelve un array vacío
       }
-    });
-  } else if (metodo === "POST") {
-    fs.readFile(filePath, "utf8", (err, data) => {
-      if (err && err.code === "ENOENT") {
-        fs.writeFile(filePath, JSON.stringify([req.body], null, 2), (err) => {
-          if (err) return res.status(500).send("Error al guardar los datos.");
-          res.send({ mensaje: "Archivo creado y dato agregado.", contenido: [req.body] });
-        });
-      } else if (err) {
-        return res.status(500).send("Error al leer el archivo.");
-      } else {
-        const contenido = JSON.parse(data);
-        contenido.push(req.body);
-        fs.writeFile(filePath, JSON.stringify(contenido, null, 2), (err) => {
-          if (err) return res.status(500).send("Error al guardar los datos.");
-          res.send({ mensaje: "Elemento agregado correctamente.", contenido });
-        });
-      }
-    });
-  }
-}
-
-// Endpoints para manejar JSON de registros, productos, facturas y reportes
-["registro", "productos", "facturas", "reportes"].forEach((archivo) => {
-  app.get(`/${archivo}`, (req, res) => manejarDatos(`${archivo}.json`, req, res, "GET"));
-  app.post(`/${archivo}`, (req, res) => manejarDatos(`${archivo}.json`, req, res, "POST"));
+      return res.status(500).send("Error al leer el archivo.");
+    }
+    res.send(JSON.parse(data));
+  });
 });
 
-// Iniciar el servidor
+// Endpoint para guardar un nuevo registro
+app.post("/registro", (req, res) => {
+  const nuevoRegistro = req.body;
+  fs.readFile(filePath, "utf8", (err, data) => {
+    let registros = [];
+    if (!err) {
+      registros = JSON.parse(data);
+    }
+    registros.push(nuevoRegistro);
+    fs.writeFile(filePath, JSON.stringify(registros, null, 2), (err) => {
+      if (err) {
+        return res.status(500).send("Error al guardar el registro.");
+      }
+      res.send({ mensaje: "Registro guardado correctamente.", registros });
+    });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Servidor ejecutándose en http://localhost:${port}`);
 });
