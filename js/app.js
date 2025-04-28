@@ -6,9 +6,15 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     // Capturar los valores del formulario
-    const nombre = document.getElementById("nombre").value;
-    const nit = document.getElementById("nit").value;
-    const correo = document.getElementById("correo").value;
+    const nombre = document.getElementById("nombre").value.trim();
+    const nit = document.getElementById("nit").value.trim();
+    const correo = document.getElementById("correo").value.trim();
+
+    // Validar los campos
+    if (!nombre || !nit || !correo) {
+      alert("Todos los campos son obligatorios.");
+      return;
+    }
 
     // Enviar los datos al backend
     fetch("http://localhost:3000/registro", {
@@ -18,7 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       body: JSON.stringify({ nombre, nit, correo }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la solicitud al servidor.");
+        }
+        return response.json();
+      })
       .then((data) => {
         console.log("Registro guardado:", data);
         alert("Comercio registrado exitosamente.");
