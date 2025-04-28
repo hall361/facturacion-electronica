@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +8,26 @@
 </head>
 <body>
   <header>
-    <div class="logo">Facturación Electrónica Para Comerciantes</div>
+    <div class="logo">Facturación Electrónica</div>
     <nav>
-      <a href="index.html" class="btn">Inicio</a>
-      <a href="registro.html" class="btn">Registrar Comercio</a>
+      <a href="registro.html">Registrar Comercio</a>
+      <a href="productos.html">Productos</a>
+      <a href="facturas.html">Facturas</a>
+      <a href="reportes.html">Reportes</a>
     </nav>
   </header>
   <main>
-    <section class="productos">
-      <h2>Gestión de Productos</h2>
-      <p>Aquí puede agregar, editar o eliminar productos.</p>
-    </section>
+    <h1>Registrar Producto</h1>
+    <form id="productoForm">
+      <label for="nombre">Nombre del Producto:</label>
+      <input type="text" id="nombre" name="nombre" required>
+      <label for="precio">Precio:</label>
+      <input type="number" id="precio" name="precio" required>
+      <label for="cantidad">Cantidad:</label>
+      <input type="number" id="cantidad" name="cantidad" required>
+      <button type="submit">Registrar Producto</button>
+    </form>
   </main>
-  <footer>
-    <p>&copy; 2025 Facturación Electrónica. Todos los derechos reservados.</p>
-  </footer>
+  <script src="js/productos.js"></script>
 </body>
 </html>

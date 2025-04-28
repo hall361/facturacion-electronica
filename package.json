@@ -9,6 +9,16 @@
   "author": "Héctor López",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
-  }
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hall361/facturacion-electronica.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/hall361/facturacion-electronica/issues"
+  },
+  "homepage": "https://github.com/hall361/facturacion-electronica#readme"
 }

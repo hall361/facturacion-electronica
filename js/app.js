@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch((error) => {
         console.error("Error al guardar el registro:", error);
-        alert("Hubo un error al registrar el comercio.");
+        alert("Hubo un error al registrar el comercio. Intente nuevamente.");
       });
   });
 });
